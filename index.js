@@ -14,11 +14,34 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER_PASSWORD
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+async function run(){
+  try{
+    const serviceCollection = client.db('sastohcare').collection('services');
+    const reviewsCollection = client.db('sastohcare').collection('reviews');
+
+    // add service 
+    app.post('/service', async (req, res) => {
+      const service = req.body;
+      const result = await serviceCollection.insertOne(service);
+      res.send(result);
+  });
+
+  }
+  
+  finally{
+  
+  }
+  
+  
+}
+
+run().catch(error => console.log(error));
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`app listening on port ${port}`)
 })
