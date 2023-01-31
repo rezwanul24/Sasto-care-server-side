@@ -37,11 +37,12 @@ async function run(){
     const serviceCollection = client.db('sastohcare').collection('services');
     const reviewsCollection = client.db('sastohcare').collection('reviews');
 
-    app.post('/jwt', (req,res)=> {
+    // login user 
+    app.post('/jwt', (req, res) => {
       const user = req.body;
-      const token = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
-      res.send({token})
-    })
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' })
+      res.send({ token })
+  })
 
     // add service 
     app.post('/service', async (req, res) => {
