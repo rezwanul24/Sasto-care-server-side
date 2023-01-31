@@ -70,6 +70,22 @@ app.get('/service/:id', async (req, res) => {
     res.send(service);
 });
 
+// add service 
+app.post('/service', verifyJWT, async (req, res) => {
+  const service = req.body;
+  const result = await serviceCollection.insertOne(service);
+  res.send(result);
+});
+
+// get reviews for service
+app.get('/reviews', async (req, res) => {
+  const id = req.query.id;
+  const query = { service_id: parseInt(id) };
+  const reviews = await reviewsCollection.find(query).sort({ datefield: -1 }).toArray();
+  const forSort = reviews.sort().reverse();
+  res.send(forSort);
+});
+
 
   }
   
