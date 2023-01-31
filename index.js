@@ -54,13 +54,7 @@ async function run(){
       res.send(services);
   });
 
-  // get all services 
-  app.get('/services', async (req, res) => {
-    const query = {}
-    const cursor = serviceCollection.find(query);
-    const services = await cursor.toArray();
-    res.send(services);
-});
+ 
 
 // get single service 
 app.get('/service/:id', async (req, res) => {
@@ -69,6 +63,15 @@ app.get('/service/:id', async (req, res) => {
     const service = await serviceCollection.findOne(query);
     res.send(service);
 });
+
+
+   // get all services 
+   app.get('/services', async (req, res) => {
+    const query = {}
+    const cursor = serviceCollection.find(query);
+    const services = await cursor.toArray();
+    res.send(services);
+  });
 
 // add service 
 app.post('/service', verifyJWT, async (req, res) => {
@@ -147,7 +150,7 @@ run().catch(error => console.log(error));
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('server is running')
 })
 
 app.listen(port, () => {
